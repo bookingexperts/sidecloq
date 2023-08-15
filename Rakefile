@@ -16,9 +16,8 @@ task :web do
 
   Sidekiq.configure_client do |config|
     config.redis = {
-      url: 'redis://localhost:6379/0',
-      size: 1,
-      namespace: 'sidecloq'
+      url: 'redis://localhost:6379/14',
+      size: 1
     }
   end
 

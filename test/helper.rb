@@ -4,8 +4,6 @@ SimpleCov.start
 $TESTING = true
 # disable minitest/parallel threads
 ENV['N'] = '0'
-# silence redis-namespace deprecation warnings
-ENV['REDIS_NAMESPACE_QUIET'] = '1'
 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'sidecloq'
@@ -17,13 +15,13 @@ require 'minitest/autorun'
 REDIS_URL = ENV['REDIS_URL'] || 'redis://localhost/15'
 
 Sidekiq.configure_client do |config|
-  config.redis = { url: REDIS_URL, namespace: 'testy' }
+  config.redis = { url: REDIS_URL }
 end
 
 Sidekiq.logger.level = ENV['LOG_LEVEL'] || Logger::ERROR
 
 module Sidecloq
-  class Test < MiniTest::Test
+  class Test < Minitest::Test
   end
 end
 
@@ -52,18 +50,9 @@ class DummyJob
   include Sidekiq::Worker
 end
 
-require 'active_job'
-
-ActiveJob::Base.queue_adapter = :sidekiq
-ActiveJob::Base.logger.level = Logger::ERROR
-
-class DummyActiveJob < ActiveJob::Base
-end
-
 def define_rails!
   unless defined? Rails
     Object.const_set('Rails', Class.new do
-
       @env = 'development'
 
       def self.root
