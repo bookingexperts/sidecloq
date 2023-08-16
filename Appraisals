@@ -11,8 +11,20 @@ customize_gemfiles do
   }
 end
 
-appraise "sidekiq-6.5.x" do
+appraise 'sidekiq-6.5.x' do
   group :test do
-    gem "sidekiq", "~> 6.5.0"
+    gem 'sidekiq', '~> 6.5.0'
+  end
+end
+
+appraise 'sidekiq-7.0.x' do
+  group :test do
+    gem 'sidekiq', '~> 7.0.0'
+  end
+end
+
+appraise 'sidekiq-7.1.x' do
+  group :test do
+    gem 'sidekiq', '~> 7.1.0'
   end
 end

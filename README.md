@@ -2,11 +2,6 @@
 
 # Sidecloq
 
-[![CI](https://github.com/mattyr/sidecloq/actions/workflows/ci.yml/badge.svg)](https://github.com/mattyr/sidecloq/actions/workflows/ci.yml)
-[![Gem Version](https://badge.fury.io/rb/sidecloq.svg)](https://badge.fury.io/rb/sidecloq)
-[![Code Climate](https://codeclimate.com/github/mattyr/sidecloq/badges/gpa.svg)](https://codeclimate.com/github/mattyr/sidecloq)
-[![Test Coverage](https://codeclimate.com/github/mattyr/sidecloq/badges/coverage.svg)](https://codeclimate.com/github/mattyr/sidecloq/coverage)
-
 Recurring / Periodic / Scheduled / Cron job extension for
 [Sidekiq](https://github.com/mperham/sidekiq)
 
@@ -37,15 +32,17 @@ Sidecloq is:
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Clone the source code to a local directory and add the following lines to your application's Gemfile:
 
 ```ruby
-gem 'sidecloq'
+path 'relative/path/to/parent/directory/of/gem' do
+  gem 'sidecloq'
+end
 ```
 
-Tested on MRI > 2 and JRuby 9k.  Basically, if you can run
-Sidekiq, you can run Sidecloq.  Note that Sidekiq >= 5 does not support
-MRI ruby < 2.2.2.
+And then execute:
+
+  $ bundle
 
 ## Configuration
 
@@ -126,17 +123,33 @@ it's corresponding "Enqueue now" button.
 
 ![Sidecloq web ui extension screenshot](assets/screenshot.png)
 
-## Notes
+## Supported Ruby Versions
 
-If you are running MRI < 2.2.2, you will need to make sure you are using
-rack < 2.0.  You can do this by adding:
+This library aims to support and is tested against the following Ruby versions:
 
-```ruby
-gem 'rack', '< 2.0'
-```
+* Ruby 3.1.x
+* Ruby 3.2.x
 
-To your app's Gemfile.  (This will also keep you from using the 5.x
-series of Sidekiq, as it requires MRI > 2.2.2).
+If something doesn't work on one of these versions, it's a bug.
+
+This library may inadvertently work (or seem to work) on other Ruby versions,
+however support will only be provided for the versions listed above.
+
+If you would like this library to support another Ruby version or
+implementation, you may volunteer to be a maintainer. Being a maintainer
+entails making sure all tests run and pass on that implementation. When
+something breaks on your implementation, you will be responsible for providing
+patches in a timely fashion. If critical issues for a particular implementation
+exist at the time of a major release, support for that Ruby version may be
+dropped.
+
+## Supported Sidekiq Versions
+
+This library aims to support and work with following Sidekiq versions:
+
+* Sidekiq 6.5.x
+* Sidekiq 7.0.x
+* Sidekiq 7.1.x
 
 ## Contributing
 

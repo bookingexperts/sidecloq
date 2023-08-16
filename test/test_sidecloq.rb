@@ -10,7 +10,7 @@ class TestSidecloq < Sidecloq::Test
       Sidecloq.options[:test] = 'something'
       assert_equal 'something', Sidecloq.options[:test]
 
-      Sidecloq.options = {test: 'something2'}
+      Sidecloq.options = { test: 'something2' }
       assert_equal 'something2', Sidecloq.options[:test]
     end
 
@@ -33,8 +33,16 @@ class TestSidecloq < Sidecloq::Test
       it 'installs into sidekiq automatically' do
         require 'sidekiq/cli'
         Sidecloq.install
-        assert_equal 1, Sidekiq.options[:lifecycle_events][:startup].length
-        assert_equal 1, Sidekiq.options[:lifecycle_events][:shutdown].length
+
+        sidekiq_config =
+          if Gem::Version.new(Sidekiq::VERSION) >= Gem::Version.new("7.0.0")
+            Sidekiq.default_configuration
+          else
+            Sidekiq
+          end
+
+        assert_equal 1, sidekiq_config[:lifecycle_events][:startup].length
+        assert_equal 1, sidekiq_config[:lifecycle_events][:shutdown].length
       end
 
       it 'can start up and shutdown' do
@@ -46,7 +54,7 @@ class TestSidecloq < Sidecloq::Test
     end
 
     describe 'schedule file' do
-      before { Sidecloq.options = {}}
+      before { Sidecloq.options = {} }
 
       it 'uses schedule from options if given' do
         s = Sidecloq::Schedule.new({})

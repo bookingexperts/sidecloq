@@ -20,8 +20,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'sidekiq', '>= 6.5', '< 7'
-  spec.add_dependency 'redlock', '>= 0.2.0', '< 2'
+  spec.add_dependency 'sidekiq', '>= 6.5'
+  spec.add_dependency 'redlock', '>= 2.0'
   spec.add_dependency 'concurrent-ruby'
-  spec.add_dependency 'rufus-scheduler', '~> 3.1', '>= 3.1.10'
+  spec.add_dependency 'rufus-scheduler', '>= 3.1'
 end
